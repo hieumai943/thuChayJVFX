@@ -6,26 +6,31 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class MenuButton extends Button {
-    private final String FONT_PATH= "src/main/java/model/Type.otf";
-    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('PlayButtonAfter.png');";
-    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('PlayButtonAfter.png');";
+    private final String FONT_PATH= "src/main/menuNhom4/model/ChunkFive-Regular.otf";
+    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: linear-gradient(to bottom right, derive(lightskyblue, 50%), derive(lightcyan, -40%));";
+    private final String BUTTON_FREE_STYLE = "-fx-background-color: linear-gradient(to bottom right, derive(lightskyblue, 30%), derive(lightcyan, -40%));";
+    private Text text= new Text();
     public MenuButton(String s) {
+
         setText(s);
+
         setButtonFont();
-        setPrefWidth(400);
-        setPrefHeight(600);
+        setPrefWidth(250);
+        setPrefHeight(60);
         setStyle(BUTTON_FREE_STYLE);
         initializeButton();
     }
 
     protected void setButtonFont(){
        try {
-           setFont(Font.loadFont(new FileInputStream(FONT_PATH),23));
+           setFont(Font.loadFont(new FileInputStream(FONT_PATH),26));
+           setStyle("-fx-text-inner-color: red;");
        } catch (FileNotFoundException e){
            setFont(Font.font("Verdana",23));
        }
@@ -33,12 +38,12 @@ public class MenuButton extends Button {
     protected void setButtonPressedStyle(){
         setStyle(BUTTON_PRESSED_STYLE);
         setPrefHeight(45);
-        setLayoutY(getLayoutY()+4);
+        setLayoutY(getLayoutY()+6);
     }
     protected  void setButtonReleasedStyle(){
         setStyle(BUTTON_FREE_STYLE);
-        setPrefHeight(49);
-        setLayoutY(getLayoutY()-4);
+        setPrefHeight(51);
+        setLayoutY(getLayoutY()-6);
     }
     public void initializeButton(){
         setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -61,7 +66,7 @@ public class MenuButton extends Button {
             @Override
             public void handle(MouseEvent event) {
                 setEffect(new DropShadow());
-                System.out.println("choi di anh");
+
             }
         });
         setOnMouseExited(new EventHandler<MouseEvent>() {

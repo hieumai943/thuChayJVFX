@@ -16,7 +16,6 @@ public class MAin extends Application {
         ViewManager manager = new ViewManager();
         primaryStage = manager.getMainStage();
         primaryStage.show();
-        manager.createbuttons();
     }catch(Exception e){
         e.printStackTrace();
     }
