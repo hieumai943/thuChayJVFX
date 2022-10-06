@@ -42,12 +42,18 @@ public class ViewManager {
 
         try {
             createBackGround();
-            createBgrLoop();
+
         } catch (Exception e){}
         createbuttons();
         try{
             createSound();
         }catch (Exception e){}
+        try{
+            creatImgBgr();
+        }catch (Exception e){}
+        try{
+            creatWordBgr();
+        }catch(Exception e){}
        createScreen();
     }
     public Stage getMainStage() {
@@ -134,40 +140,13 @@ public class ViewManager {
             }
         });
     }
-
-
-    protected void createBackGround() throws Exception {
-        gridPane1 = new GridPane();
-        gridPane2 = new GridPane();
-        for(int i=0; i<21;i++){
-            Image bgr1 = new Image(new FileInputStream("src\\main\\resources\\deep_blue.png"));
-            Image bgr2 = new Image(new FileInputStream("src\\main\\resources\\deep_blue.png"));
-            ImageView bgrImg1= new ImageView();
-            ImageView bgrImg2= new ImageView();
-            bgrImg1.setImage(bgr1);
-            bgrImg2.setImage(bgr2);
-            GridPane.setConstraints(bgrImg1, i %7 , i /7);
-            GridPane.setConstraints(bgrImg2, i %7, i /7);
-            gridPane1.getChildren().add(bgrImg1);
-            gridPane2.getChildren().add(bgrImg2);
-
-
-        }
-        gridPane2.setLayoutY(-650);
-        mainPane.getChildren().addAll(gridPane1,gridPane2);
-
-
+    private void createBackGround() throws Exception{
+        Image bgrImg = new Image(new FileInputStream("src\\main\\resources\\bgr.gif"),1000,650, false,true);
+        BackgroundImage bg = new BackgroundImage(bgrImg, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,new BackgroundSize(1000,650, false,false,false,false));
+        mainPane.setBackground(new Background(bg));
     }
-    private void createBgrLoop(){
-        bgrTimer = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                moveBackground();
-            }
-        };
-        bgrTimer.start();
 
-    }
+
     private  void moveBackground(){
         gridPane1.setLayoutY(gridPane1.getLayoutY()+ 2);
         gridPane2.setLayoutY(gridPane2.getLayoutY() + 2);
@@ -200,4 +179,38 @@ public class ViewManager {
 
        mainPane.getChildren().add(img);
     }
+    private void creatImgBgr() throws Exception{
+        Image logo = new Image(new FileInputStream("src\\main\\resources\\menuImg.png"));
+        ImageView img= new ImageView();
+        img.setImage(logo);
+
+        img.setLayoutX(600);
+        img.setLayoutY(200);
+
+
+        mainPane.getChildren().add(img);
+    }
+    private void creatWordBgr() throws Exception{
+        Image logo = new Image(new FileInputStream("src\\main\\resources\\bomber (2).png"));
+        ImageView img= new ImageView();
+        img.setImage(logo);
+
+        img.setLayoutX(300);
+        img.setLayoutY(10);
+        img.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                img.setEffect(new DropShadow());
+            }
+        });
+        img.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                img.setEffect(null);
+            }
+        });
+
+        mainPane.getChildren().add(img);
+    }
+
 }
