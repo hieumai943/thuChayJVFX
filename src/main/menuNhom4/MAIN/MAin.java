@@ -7,6 +7,7 @@ import view.ViewManager;
 public class MAin extends Application {
 
     public static void main(String[] args) {
+
         launch(args);
     }
 
