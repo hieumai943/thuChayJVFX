@@ -1,11 +1,15 @@
 package view;
 
+import graphics.Sprite;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 
 public class GameView {
     private AnchorPane gamePane;
@@ -15,6 +19,7 @@ public class GameView {
     private static final int GAME_HEIGHT = 650;
     private Stage menuStage;
 
+    private ImageView bomber;
     public GameView(){
     initialize();
 
@@ -52,6 +57,18 @@ public class GameView {
     public void createNewGame(Stage menuStage){
         this.menuStage = menuStage;
         this.menuStage.hide();
+        createBomber();
         gameStage.show();
+
     }
+
+    private void createBomber(){
+        Image img = Sprite.player_left.getFxImage();
+        bomber = new ImageView();
+        bomber.setImage(img);
+        bomber.setLayoutX(1);
+        bomber.setLayoutY(1);
+        gamePane.getChildren().add(bomber);
+    }
+
 }

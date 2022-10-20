@@ -28,12 +28,12 @@ public class MenuButton extends Button {
     }
 
     protected void setButtonFont(){
-       try {
-           setFont(Font.loadFont(new FileInputStream(FONT_PATH),26));
-           setStyle("-fx-text-inner-color: red;");
-       } catch (FileNotFoundException e){
-           setFont(Font.font("Verdana",23));
-       }
+        try {
+            setFont(Font.loadFont(new FileInputStream(FONT_PATH),26));
+            setStyle("-fx-text-inner-color: red;");
+        } catch (FileNotFoundException e){
+            setFont(Font.font("Verdana",23));
+        }
     }
     protected void setButtonPressedStyle(){
         setStyle(BUTTON_PRESSED_STYLE);

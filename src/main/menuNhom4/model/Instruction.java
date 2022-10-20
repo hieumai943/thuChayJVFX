@@ -17,7 +17,7 @@ public class Instruction extends SubScene {
         super(new AnchorPane(), 500, 300);
         prefWidth(500);
         prefHeight(300);
-        Image backgroundImage = new Image(new FileInputStream("src\\main\\resources\\Instruction.jpg"),500,300,false,true);
+        Image backgroundImage = new Image(new FileInputStream("src\\main\\resources\\instruction.jpg"),500,300,false,true);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,null);
 
         AnchorPane root2 = (AnchorPane) this.getRoot();

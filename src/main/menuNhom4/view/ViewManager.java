@@ -27,7 +27,7 @@ public class ViewManager {
     private Scene mainScene;
     private Stage mainStage;
     private static final int MENU_START_X = 150;
-    private static final int MENU_START_Y = 200;
+    private static final int MENU_START_Y = 150;
     private Instruction hdscreen;
     private Instruction highscreen;
     private Instruction playscreen;
@@ -38,6 +38,7 @@ public class ViewManager {
 
     private Instruction sceneToHide;
     private MediaPlayer mediaPlayer;
+   private int count =0;
 
     public void music() throws Exception {
 
@@ -45,7 +46,9 @@ public class ViewManager {
         Media h = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(h);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+        if(count%2==0) mediaPlayer.play();
+        else mediaPlayer.isMute();
+
     }
 
     public ViewManager() {
@@ -54,7 +57,9 @@ public class ViewManager {
         mainStage = new Stage();
         mainStage.setScene(mainScene);
         try {
-      music();
+music();
+
+
         } catch (Exception e) {
         }
         try {
@@ -108,6 +113,7 @@ public class ViewManager {
         createdStartButton();
         createdScoresButton();
         createdInsButton();
+        createdSoundButton();
         createdExitButton();
 
     }
@@ -122,17 +128,13 @@ public class ViewManager {
     protected void createdStartButton() {
         MenuButton startButton = new MenuButton("PLAY");
         addMenuButton(startButton);
+
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                showScene(playscreen);
-            }
-        });
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                GameView gameManager = new GameView();
-                gameManager.createNewGame(mainStage);
+                BombermanGame bombermanGame = new BombermanGame();
+                bombermanGame.createGame(mainStage);
+
             }
         });
     }
@@ -160,7 +162,19 @@ public class ViewManager {
         });
 
     }
+    protected void createdSoundButton() {
+        MenuButton soundButton = new MenuButton("SOUND");
+        addMenuButton(soundButton);
+        soundButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                mediaPlayer.pause();
+                count++;
+                if(count %2 ==0) mediaPlayer.play();
+            }
+        });
 
+    }
     protected void createdExitButton() {
         MenuButton ExitButton = new MenuButton("EXIT");
         addMenuButton(ExitButton);
@@ -192,15 +206,20 @@ public class ViewManager {
 
     private void createSound() throws Exception {
         Image logo = new Image(new FileInputStream("src\\main\\resources\\music (1).png"));
-        ImageView img = new ImageView();
-        img.setImage(logo);
+        Image logo2 = new Image(new FileInputStream("src\\main\\resources\\mute.png"));
 
-        img.setLayoutX(150);
-        img.setLayoutY(40);
+        ImageView img = new ImageView();
+       img.setImage(logo);
+
+        img.setLayoutX(70);
+        img.setLayoutY(440);
+
         img.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                img.setImage(logo2);
                 img.setEffect(new DropShadow());
+
             }
         });
         img.setOnMouseExited(new EventHandler<MouseEvent>() {
