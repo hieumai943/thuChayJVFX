@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class BombermanGame  {
     public static final int HEIGHT = 15;
     //
     public static int width = 0;
+    private int frame =1;
+    private long last_time;
+    public static Stage main_stage = null;
     //
     private int count =0;
     public static int height = 0;
@@ -39,6 +43,8 @@ public class BombermanGame  {
     private Scene mainScene;
     private Entity bomberman;
     private Entity balloom;
+    public static Text time;
+    public static int time_number = 120;
     private GraphicsContext gc;
     private Canvas canvas;
     public static List<Animal> enemy = new ArrayList<>();           // Contains enemy entities
@@ -121,7 +127,7 @@ public class BombermanGame  {
 
         // Tao map
         createMap();
-        balloom = new Ballom(WIDTH/2, HEIGHT /2 , Sprite.balloom_left1.getFxImage());
+        balloom = new Ballom(WIDTH/2-2, HEIGHT /2-2 , Sprite.balloom_left1.getFxImage());
         entities.add(balloom);
         // Tao bomber
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
@@ -170,13 +176,18 @@ public class BombermanGame  {
 
     public void update() {
         updatePlayerInput();
-        balloom.setCountToRun(balloom.getCountToRun()+1);
+
+
         bomberman.setCountToRun(bomberman.getCountToRun() + 1);
         if (bomberman.getCountToRun() == 4) {
             Component.checkRun(bomberman);
             bomberman.setCountToRun(0);
         }
-        if(balloom.getCountToRun() ==4 ){
+
+            balloom.update();
+
+        balloom.setCountToRun(balloom.getCountToRun() + 1);
+        if (balloom.getCountToRun() == 6  ) {
             Component.checkRun(balloom);
             balloom.setCountToRun(0);
         }
@@ -187,5 +198,6 @@ public class BombermanGame  {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        bomberman.render(gc);
     }
 }

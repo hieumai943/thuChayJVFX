@@ -1,6 +1,6 @@
 package entities;
 
-import Move.Move;
+import components.Component;
 import graphics.Sprite;
 import javafx.scene.image.Image;
 
@@ -57,30 +57,30 @@ public class Ballom  extends Animal{
 
     @Override
     public void update() {
-        kill();
-        count_kill++;
-        for (Animal animal : enemy) {
-            if (animal instanceof Ballom && !animal.life)
-                killBallom(animal);
-        }
 
-        if (this.y % 16 == 0 && this.x % 16 == 0) {
+
+
             Random random = new Random();
             int direction = random.nextInt(4);
             switch (direction) {
                 case 0:
-                    Move.down(this);
+                    Component.down(this);
+
+
                     break;
                 case 1:
-                    Move.up(this);
+                    Component.left(this);
+
                     break;
                 case 2:
-                    Move.left(this);
+                    Component.up(this);
+
                     break;
                 case 3:
-                    Move.right(this);
+                    Component.right(this);
+
                     break;
             }
         }
-    }
+
 }
